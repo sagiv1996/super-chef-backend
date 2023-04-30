@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Recipe } from 'schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
 
@@ -11,5 +11,15 @@ export class RecipeService {
   async createRecipe(postRecipeDto: PostRecipeDto): Promise<Recipe> {
     const newRecipe = await this.recipeModel.create(postRecipeDto);
     return newRecipe;
+  }
+
+  async getRecipes(): Promise<Recipe[]> {
+    const recipes = await this.recipeModel.find();
+    return recipes;
+  }
+
+  async getRecipeById(id: ObjectId): Promise<Recipe> {
+    const recipe = await this.recipeModel.findById(id);
+    return recipe;
   }
 }
