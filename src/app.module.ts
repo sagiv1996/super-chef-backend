@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { IngredientModule } from './ingredient/ingredient.module';
 import { ConfigModule } from '@nestjs/config';
 import { RecipeModule } from './recipe/recipe.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { RecipeModule } from './recipe/recipe.module';
     MongooseModule.forRoot(process.env.MONGO_DB_URI),
     IngredientModule,
     RecipeModule,
+    ShoppingListModule,
   ],
   controllers: [AppController],
   providers: [AppService],
