@@ -1,5 +1,5 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { ShoppingListStatus } from './shopping-list-status.enum';
 
 export type ShoppingListDocument = HydratedDocument<ShoppingList>;
