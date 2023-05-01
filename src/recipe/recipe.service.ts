@@ -14,7 +14,7 @@ export class RecipeService {
   }
 
   async getRecipes(): Promise<Recipe[]> {
-    const recipes = await this.recipeModel.find();
+    const recipes = await this.recipeModel.find().limit(50);
     return recipes;
   }
 

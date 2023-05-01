@@ -1,6 +1,5 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { ShoppingListStatus } from './shopping-list-status.enum';
 
 export type ShoppingListDocument = HydratedDocument<ShoppingList>;
 
@@ -13,7 +12,7 @@ export class ShoppingList {
   name: string;
 
   @Prop({ required: true })
-  status: ShoppingListStatus;
+  isCompleted: boolean;
 }
 
 export const ShoppingListSchema = SchemaFactory.createForClass(ShoppingList);

@@ -12,13 +12,14 @@ export class RecipeController {
     return this.recipeService.createRecipe(body);
   }
 
+  // TODO: I think its better to add limit to this request, I add a limit as a constant (50) in the service
   @Get()
   getRecipes(): Promise<Recipe[]> {
     return this.recipeService.getRecipes();
   }
 
   @Get(':id')
-  getRecipe(@Param('id') recipeId: ObjectId) {
+  getRecipe(@Param('id') recipeId: ObjectId): Promise<Recipe> {
     return this.recipeService.getRecipeById(recipeId);
   }
 }
