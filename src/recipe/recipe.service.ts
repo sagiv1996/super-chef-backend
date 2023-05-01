@@ -22,4 +22,13 @@ export class RecipeService {
     const recipe = await this.recipeModel.findById(id);
     return recipe;
   }
+
+  async getRecipeByName(recipeName: string): Promise<Recipe[]> {
+    const recipe = await this.recipeModel
+      .find({
+        name: new RegExp(recipeName),
+      })
+      .limit(20);
+    return recipe;
+  }
 }
