@@ -22,4 +22,9 @@ export class RecipeService {
     const recipe = await this.recipeModel.findById(id);
     return recipe;
   }
+
+  async getRecipeByPreparationTime(preparationTime: string): Promise<Recipe[]> {
+    const recipes = await this.recipeModel.find({ preparationTime });
+    return recipes;
+  }
 }

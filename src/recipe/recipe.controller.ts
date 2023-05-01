@@ -22,4 +22,11 @@ export class RecipeController {
   getRecipe(@Param('id') recipeId: ObjectId): Promise<Recipe> {
     return this.recipeService.getRecipeById(recipeId);
   }
+
+  @Get('/:preparationTime')
+  getRecipeByPreparationTime(
+    @Param('preparationTime') preparationTime: string,
+  ): Promise<Recipe[]> {
+    return this.recipeService.getRecipeByPreparationTime(preparationTime);
+  }
 }
