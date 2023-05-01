@@ -24,11 +24,15 @@ export class RecipeService {
     return recipe;
   }
 
-  //TODO: FIX IT METHOD
   async getRecipeByIngredients(
     getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
-  ): Promise<Recipe[]> {
-    const recipe = await this.recipeModel.find();
-    return recipe;
+  ): Promise<ObjectId[]> {
+    const ingredientIds = getRecipeByIngredientsDto.ingredientIds;
+    const recipeIds = await this.recipeModel.distinct('id', {
+      ingredients: {
+        $all: ingredientIds.map((id) => ({ $elemMatch: { id } })),
+      },
+    });
+    return recipeIds;
   }
 }

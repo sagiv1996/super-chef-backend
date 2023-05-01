@@ -27,7 +27,7 @@ export class RecipeController {
   @Get('/:ingredients')
   getRecipeByIngredients(
     @Body() getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
-  ): Promise<Recipe[]> {
+  ): Promise<ObjectId[]> {
     return this.recipeService.getRecipeByIngredients(getRecipeByIngredientsDto);
   }
 }
