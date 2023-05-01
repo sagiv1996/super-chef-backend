@@ -3,6 +3,7 @@ import { PostRecipeDto } from './dto/postRecipe.dto';
 import { Recipe } from 'schemas/recipe.schema';
 import { RecipeService } from './recipe.service';
 import { ObjectId } from 'mongoose';
+import { GetRecipeByIngredientsDto } from './dto/getRecipeByIngredients.dto';
 
 @Controller('recipe')
 export class RecipeController {
@@ -21,5 +22,12 @@ export class RecipeController {
   @Get(':id')
   getRecipe(@Param('id') recipeId: ObjectId): Promise<Recipe> {
     return this.recipeService.getRecipeById(recipeId);
+  }
+
+  @Get('/:ingredients')
+  getRecipeByIngredients(
+    @Body() getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
+  ): Promise<Recipe[]> {
+    return this.recipeService.getRecipeByIngredients(getRecipeByIngredientsDto);
   }
 }

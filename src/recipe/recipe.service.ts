@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Recipe } from 'schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
+import { GetRecipeByIngredientsDto } from './dto/getRecipeByIngredients.dto';
 
 @Injectable()
 export class RecipeService {
@@ -20,6 +21,14 @@ export class RecipeService {
 
   async getRecipeById(id: ObjectId): Promise<Recipe> {
     const recipe = await this.recipeModel.findById(id);
+    return recipe;
+  }
+
+  //TODO: FIX IT METHOD
+  async getRecipeByIngredients(
+    getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
+  ): Promise<Recipe[]> {
+    const recipe = await this.recipeModel.find();
     return recipe;
   }
 }
