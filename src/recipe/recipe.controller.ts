@@ -19,7 +19,12 @@ export class RecipeController {
   }
 
   @Get(':id')
-  getRecipe(@Param('id') recipeId: ObjectId): Promise<Recipe> {
+  getRecipeByid(@Param('id') recipeId: ObjectId): Promise<Recipe> {
     return this.recipeService.getRecipeById(recipeId);
+  }
+
+  @Get('/:name')
+  getRecipeByName(@Param('name') recipeName: string): Promise<Recipe[]> {
+    return this.recipeService.getRecipeByName(recipeName);
   }
 }
