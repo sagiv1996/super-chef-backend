@@ -21,7 +21,7 @@ export class RecipeService {
 
   async getRecipeById(id: ObjectId): Promise<Recipe> {
     const recipe = await this.recipeModel.findById(id);
-    return recipe;
+    return recipe;   
   }
 
   async getRecipesByIngredients(
