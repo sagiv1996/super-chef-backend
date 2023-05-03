@@ -28,14 +28,22 @@ export class RecipeService {
     getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
   ): Promise<Recipe[]> {
     const ingredientIds = getRecipeByIngredientsDto.ingredientIds;
-    const recipeIds = await this.recipeModel.find({
-      'ingredients.id': { $in: ingredientIds },
-    });
-    // const recipeIds = await this.recipeModel.distinct('id', {
-    //   ingredients: {
-    //     $all: ingredientIds.map((id) => ({ $elemMatch: { id } })),
-    //   },
-    // });
-    return recipeIds;
+    const matchPercent = getRecipeByIngredientsDto.matchPercent;
+    const numMatches = Math.ceil(ingredientIds.length * (matchPercent / 100));
+
+    const recipes = await this.recipeModel
+      .find({
+        'ingredients.id': ingredientIds,
+      })
+      .lean()
+      .then((recipes) => {
+        while (recipes.length === numMatches) {
+          const randomIndex = Math.floor(Math.random() * recipes.length); // generate a random index
+          recipes.splice(randomIndex, 1);
+        }
+        return recipes;
+      });
+
+    return recipes;
   }
 }
