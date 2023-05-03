@@ -28,7 +28,7 @@ export class Recipe {
   preparationTime: string;
 
   @Prop({
-    type: [{ id: { type: Types.ObjectId, ref: 'Ingredient' }, amount: Number }],
+    type: [{ id: { type: Types.ObjectId, ref: 'Ingredient' }, amount: String }],
     required: true,
   })
   ingredients: [
