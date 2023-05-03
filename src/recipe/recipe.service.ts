@@ -28,14 +28,11 @@ export class RecipeService {
     getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
   ): Promise<Recipe[]> {
     const ingredientIds = getRecipeByIngredientsDto.ingredientIds;
-    const recipeIds = await this.recipeModel.find({
-      'ingredients.id': { $in: ingredientIds },
-    });
-    // const recipeIds = await this.recipeModel.distinct('id', {
-    //   ingredients: {
-    //     $all: ingredientIds.map((id) => ({ $elemMatch: { id } })),
-    //   },
-    // });
-    return recipeIds;
+    const recipes = await this.recipeModel
+      .find({
+        'ingredients.id': { $in: ingredientIds },
+      })
+      .lean();
+    return recipes;
   }
 }
