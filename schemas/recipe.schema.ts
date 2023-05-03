@@ -24,8 +24,13 @@ export class Recipe {
   @Prop({ required: true })
   steps: string[];
 
-  @Prop()
-  preparationTime: string;
+  @Prop({
+    type: { hours: Number, minutes: Number }
+  })
+  preparationTime: {
+    hours: number,
+    minutes: number,
+  };
 
   @Prop({
     type: [{ id: { type: Types.ObjectId, ref: 'Ingredient' }, amount: Number }],

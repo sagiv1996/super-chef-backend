@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Recipe } from 'schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
+import { RecipeTimePreparationDto } from './dto/recipeTimePreparation.dto';
 
 @Injectable()
 export class RecipeService {
@@ -23,7 +24,9 @@ export class RecipeService {
     return recipe;
   }
 
-  async getRecipeByPreparationTime(preparationTime: string): Promise<Recipe[]> {
+  async getRecipeByPreparationTime(
+    preparationTime: RecipeTimePreparationDto,
+  ): Promise<Recipe[]> {
     const recipes = await this.recipeModel.find({ preparationTime });
     return recipes;
   }

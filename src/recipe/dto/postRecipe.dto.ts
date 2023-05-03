@@ -7,18 +7,19 @@ import {
   IsEnum,
   ArrayMinSize,
   ValidateNested,
-  IsNumber,
   IsMongoId,
+  IsObject,
 } from 'class-validator';
 import { Types } from 'mongoose';
 import { RecipeTag } from 'schemas/recipeTags.enum';
+import { RecipeTimePreparationDto } from './recipeTimePreparation.dto';
 
 class IngredientItem {
   @IsMongoId()
   id: Types.ObjectId;
 
-  @IsNumber()
-  amount: number;
+  @IsString()
+  amount: string;
 }
 export class PostRecipeDto {
   @IsString()
@@ -47,9 +48,9 @@ export class PostRecipeDto {
   @ArrayMinSize(3)
   steps: string[];
 
-  @IsString()
+  @IsObject()
   @IsNotEmpty()
-  preparationTime: string;
+  preparationTime: RecipeTimePreparationDto;
 
   @IsArray()
   @ValidateNested({ each: true })

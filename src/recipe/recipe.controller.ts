@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
 import { PostRecipeDto } from './dto/postRecipe.dto';
 import { Recipe } from 'schemas/recipe.schema';
 import { RecipeService } from './recipe.service';
 import { ObjectId } from 'mongoose';
+import { RecipeTimePreparationDto } from './dto/recipeTimePreparation.dto';
 
 @Controller('recipe')
 export class RecipeController {
@@ -23,10 +24,11 @@ export class RecipeController {
     return this.recipeService.getRecipeById(recipeId);
   }
 
-  @Get('/:preparationTime')
+  @Post('preparationTime')
   getRecipeByPreparationTime(
-    @Param('preparationTime') preparationTime: string,
+    @Query() preparationTime: RecipeTimePreparationDto,
   ): Promise<Recipe[]> {
+    console.log(preparationTime);
     return this.recipeService.getRecipeByPreparationTime(preparationTime);
   }
 }
