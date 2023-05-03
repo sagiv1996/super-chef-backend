@@ -30,11 +30,10 @@ export class Recipe {
   @Prop({
     type: [{ id: { type: Types.ObjectId, ref: 'Ingredient' }, amount: String }],
     required: true,
+    _id: false,
   })
   ingredients: [
     {
-      _id: false;
-
       id: { type: Types.ObjectId; ref: 'Ingredient' };
       amount: string;
     },
