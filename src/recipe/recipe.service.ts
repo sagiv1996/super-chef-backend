@@ -35,4 +35,13 @@ export class RecipeService {
       .lean();
     return recipes;
   }
+
+  async getRecipeByName(recipeName: string): Promise<Recipe[]> {
+    const recipe = await this.recipeModel
+      .find({
+        name: new RegExp(recipeName),
+      })
+      .limit(20);
+    return recipe;
+  }
 }
