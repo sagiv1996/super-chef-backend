@@ -32,6 +32,7 @@ export class RecipeController {
     return this.recipeService.getRecipesByIngredients(
       getRecipeByIngredientsDto,
     );
+  }
   @Get('/:name')
   getRecipeByName(@Param('name') recipeName: string): Promise<Recipe[]> {
     return this.recipeService.getRecipeByName(recipeName);
