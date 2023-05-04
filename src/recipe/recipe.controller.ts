@@ -28,7 +28,7 @@ export class RecipeController {
   @Get()
   getRecipesByFilters(
     @Body() getRecipesByFilterDto: GetRecipesByFiltersDto,
-    @Query() limitAndSkipDto: LimitAndSkipDto
+    @Query() limitAndSkipDto: LimitAndSkipDto,
   ): Promise<Recipe[]> {
     return this.recipeService.getRecipesByFilters(
       getRecipesByFilterDto,
