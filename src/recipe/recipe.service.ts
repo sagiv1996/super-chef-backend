@@ -4,6 +4,19 @@ import { Model, ObjectId } from 'mongoose';
 import { Recipe } from 'schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
 import { GetRecipeByIngredientsDto } from './dto/getRecipeByIngredients.dto';
+import { GetRescipesByFiltersDto } from './dto/getRecipesByFilters.dto';
+
+interface GetRecipesQuery {
+  ownerId?: string;
+
+  name?: RegExp;
+
+  tags?: string;
+
+  preparationTime?: number;
+
+  ingredientsIds?: ObjectId[];
+}
 
 @Injectable()
 export class RecipeService {
@@ -21,7 +34,7 @@ export class RecipeService {
 
   async getRecipeById(id: ObjectId): Promise<Recipe> {
     const recipe = await this.recipeModel.findById(id);
-    return recipe;   
+    return recipe;
   }
 
   async getRecipesByIngredients(
@@ -43,5 +56,24 @@ export class RecipeService {
       })
       .limit(20);
     return recipe;
+  }
+
+  async getRecipesByFilters(
+    getRecipesByFiltersDto: GetRescipesByFiltersDto,
+  ): Promise<Recipe[]> {
+    const { ownerId, name, preparationTime, tags, ingredientsIds } =
+      getRecipesByFiltersDto;
+    const query: GetRecipesQuery = {};
+    if (ownerId) {
+      query.ownerId = ownerId;
+    }
+    if (name) {
+      query.name = new RegExp(name);
+    }
+    if (tags) {
+      query.tags = `$and: ${tags}`;
+    }
+    const recipes = await this.recipeModel.find({ $and: [{ tags: [] }] });
+    return recipes;
   }
 }
