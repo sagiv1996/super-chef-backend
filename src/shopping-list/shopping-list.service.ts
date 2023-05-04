@@ -11,7 +11,14 @@ export class ShoppingListService {
     private shoppingListModel: Model<ShoppingList>,
   ) {}
 
-  async createShoppingList(postShoppingListDto: PostShoppingListDto): Promise<ShoppingList> {
+  async createShoppingList(
+    postShoppingListDto: PostShoppingListDto,
+  ): Promise<ShoppingList> {
     return this.shoppingListModel.create(postShoppingListDto);
+  }
+  async getShoppingListByUserId(userId: String): Promise<ShoppingList[]> {
+    return await this.shoppingListModel.find({
+      $or: [{ ownerId: userId }, { sharedWith: userId }],
+    });
   }
 }
