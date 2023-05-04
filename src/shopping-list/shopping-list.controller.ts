@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ShoppingListService } from './shopping-list.service';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
-import { ShoppingList } from 'schemas/shopping-list.schema';
+import { ShoppingList } from 'src/schemas/shopping-list.schema';
 
 @Controller('shopping-list')
 export class ShoppingListController {

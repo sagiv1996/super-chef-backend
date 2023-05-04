@@ -11,7 +11,7 @@ import {
   IsMongoId,
 } from 'class-validator';
 import { Types } from 'mongoose';
-import { RecipeTag } from 'schemas/recipeTags.enum';
+import { RecipeTag } from 'src/schemas/recipeTags.enum';
 
 class IngredientItem {
   @IsMongoId()

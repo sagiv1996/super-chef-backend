@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
 import { PostRecipeDto } from './dto/postRecipe.dto';
-import { Recipe } from 'schemas/recipe.schema';
+import { Recipe } from 'src/schemas/recipe.schema';
 import { RecipeService } from './recipe.service';
 import { ObjectId } from 'mongoose';
 import { GetRecipesByFiltersDto } from './dto/getRecipesByFilters.dto';

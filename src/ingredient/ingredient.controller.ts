@@ -2,7 +2,7 @@ import { Body, Controller, Get, Query, Post } from '@nestjs/common';
 import { GetIngredientDto } from './dto/getIngredient.dto';
 import { IngredientService } from './ingredient.service';
 import { PostIngredientDto } from './dto/postIngredient.dto';
-import { Ingredient } from 'schemas/ingredient.schema';
+import { Ingredient } from 'src/schemas/ingredient.schema';
 
 @Controller('ingredient')
 export class IngredientController {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ShoppingList } from 'schemas/shopping-list.schema';
+import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 
 @Injectable()

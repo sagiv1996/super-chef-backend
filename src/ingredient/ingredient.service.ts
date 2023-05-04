@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Ingredient } from 'schemas/ingredient.schema';
+import { Ingredient } from 'src/schemas/ingredient.schema';
 import { GetIngredientDto } from './dto/getIngredient.dto';
 import { Model } from 'mongoose';
 import { PostIngredientDto } from './dto/postIngredient.dto';

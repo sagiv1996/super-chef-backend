@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { Recipe } from 'schemas/recipe.schema';
+import { Recipe } from 'src/schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
 import { GetRecipesByFiltersDto } from './dto/getRecipesByFilters.dto';
 import { GetRecipesQuery } from './interfaces/GetRecipesQuery';
