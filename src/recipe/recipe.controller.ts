@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
 import { PostRecipeDto } from './dto/postRecipe.dto';
 import { Recipe } from 'schemas/recipe.schema';
 import { RecipeService } from './recipe.service';
 import { ObjectId } from 'mongoose';
-import { GetRecipeByIngredientsDto } from './dto/getRecipeByIngredients.dto';
-import { GetRescipesByFiltersDto } from './dto/getRecipesByFilters.dto';
+import { GetRecipesByFiltersDto } from './dto/getRecipesByFilters.dto';
+import { LimitAndSkipDto } from 'src/globalDto/LimitAndSkip.Dto';
 
 @Controller('recipe')
 export class RecipeController {
@@ -26,22 +26,13 @@ export class RecipeController {
   }
 
   @Get()
-  getRecipesByIngredients(
-    @Body() getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
-  ): Promise<Recipe[]> {
-    return this.recipeService.getRecipesByIngredients(
-      getRecipeByIngredientsDto,
-    );
-  }
-  @Get('/:name')
-  getRecipeByName(@Param('name') recipeName: string): Promise<Recipe[]> {
-    return this.recipeService.getRecipeByName(recipeName);
-  }
-
-  @Get()
   getRecipesByFilters(
-    @Body() getRecipesByFilterDto: GetRescipesByFiltersDto,
+    @Body() getRecipesByFilterDto: GetRecipesByFiltersDto,
+    @Query() limitAndSkipDto: LimitAndSkipDto
   ): Promise<Recipe[]> {
-    return this.recipeService.getRecipesByFilters(getRecipesByFilterDto);
+    return this.recipeService.getRecipesByFilters(
+      getRecipesByFilterDto,
+      limitAndSkipDto,
+    );
   }
 }

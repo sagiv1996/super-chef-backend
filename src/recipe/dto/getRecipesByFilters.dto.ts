@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 import { ObjectId } from 'mongoose';
-export class GetRescipesByFiltersDto {
+export class GetRecipesByFiltersDto {
   @IsOptional()
   @IsString()
   ownerId?: string;

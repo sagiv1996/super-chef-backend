@@ -3,20 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Recipe } from 'schemas/recipe.schema';
 import { PostRecipeDto } from './dto/postRecipe.dto';
-import { GetRecipeByIngredientsDto } from './dto/getRecipeByIngredients.dto';
-import { GetRescipesByFiltersDto } from './dto/getRecipesByFilters.dto';
-
-interface GetRecipesQuery {
-  ownerId?: string;
-
-  name?: RegExp;
-
-  tags?: string;
-
-  preparationTime?: number;
-
-  ingredientsIds?: ObjectId[];
-}
+import { GetRecipesByFiltersDto } from './dto/getRecipesByFilters.dto';
+import { GetRecipesQuery } from './interfaces/GetRecipesQuery';
+import { LimitAndSkipDto } from 'src/globalDto/LimitAndSkip.Dto';
 
 @Injectable()
 export class RecipeService {
@@ -26,41 +15,16 @@ export class RecipeService {
     const newRecipe = await this.recipeModel.create(postRecipeDto);
     return newRecipe;
   }
-
-  async getRecipes(): Promise<Recipe[]> {
-    const recipes = await this.recipeModel.find().limit(50);
-    return recipes;
-  }
-
   async getRecipeById(id: ObjectId): Promise<Recipe> {
     const recipe = await this.recipeModel.findById(id);
     return recipe;
   }
 
-  async getRecipesByIngredients(
-    getRecipeByIngredientsDto: GetRecipeByIngredientsDto,
-  ): Promise<Recipe[]> {
-    const ingredientIds = getRecipeByIngredientsDto.ingredientIds;
-    const recipes = await this.recipeModel
-      .find({
-        'ingredients.id': { $in: ingredientIds },
-      })
-      .lean();
-    return recipes;
-  }
-
-  async getRecipeByName(recipeName: string): Promise<Recipe[]> {
-    const recipe = await this.recipeModel
-      .find({
-        name: new RegExp(recipeName),
-      })
-      .limit(20);
-    return recipe;
-  }
-
   async getRecipesByFilters(
-    getRecipesByFiltersDto: GetRescipesByFiltersDto,
+    getRecipesByFiltersDto: GetRecipesByFiltersDto,
+    limitAndSkipDto: LimitAndSkipDto,
   ): Promise<Recipe[]> {
+    const { skip, limit }: { skip: number; limit: number } = limitAndSkipDto;
     const { ownerId, name, preparationTime, tags, ingredientsIds } =
       getRecipesByFiltersDto;
     const query: GetRecipesQuery = {};
@@ -71,9 +35,15 @@ export class RecipeService {
       query.name = new RegExp(name);
     }
     if (tags) {
-      query.tags = `$and: ${tags}`;
+      query.tags = { $all: tags };
     }
-    const recipes = await this.recipeModel.find({ $and: [{ tags: [] }] });
+    if (preparationTime) {
+      query.preparationTime = { $lte: preparationTime };
+    }
+    if (ingredientsIds) {
+      query.ingredientsIds = { $all: ingredientsIds };
+    }
+    const recipes = await this.recipeModel.find(query).limit(limit).skip(skip);
     return recipes;
   }
 }

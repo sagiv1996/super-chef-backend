@@ -11,7 +11,7 @@ export class ShoppingList {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: false })
   isCompleted: boolean;
 }
 
