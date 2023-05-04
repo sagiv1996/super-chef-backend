@@ -41,6 +41,7 @@ export class RecipeService {
       query.preparationTime = { $lte: preparationTime };
     }
     if (ingredientsIds) {
+      // TODO: fix the bug, this is a object, not a normal array.
       query.ingredientsIds = { $all: ingredientsIds };
     }
     const recipes = await this.recipeModel.find(query).limit(limit).skip(skip);

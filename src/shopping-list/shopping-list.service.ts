@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 
@@ -20,5 +20,9 @@ export class ShoppingListService {
     return await this.shoppingListModel.find({
       $or: [{ ownerId: userId }, { sharedWith: userId }],
     });
+  }
+
+  async addItem(shoppingListId: ObjectId){
+    
   }
 }
