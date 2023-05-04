@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ShoppingListService } from './shopping-list.service';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
+import { ObjectId } from 'mongoose';
+import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 
 @Controller('shopping-list')
 export class ShoppingListController {
@@ -19,5 +21,13 @@ export class ShoppingListController {
     @Param('userId') userId: String,
   ): Promise<ShoppingList[]> {
     return this.shoppingListService.getShoppingListByUserId(userId);
+  }
+
+  @Patch('add-item/:shoppingListId')
+  addItem(
+    @Param('shoppingListId') shoppingListId: ObjectId,
+    @Body() patchShoppingListItemDto: PatchShoppingListItemDto,
+  ) {
+    return this.shoppingListService.addItem(shoppingListId, patchShoppingListItemDto)
   }
 }

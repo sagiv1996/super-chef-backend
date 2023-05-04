@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
+import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 
 @Injectable()
 export class ShoppingListService {
@@ -22,7 +23,14 @@ export class ShoppingListService {
     });
   }
 
-  async addItem(shoppingListId: ObjectId){
-    
+  async addItem(
+    shoppingListId: ObjectId,
+    patchShoppingListItemDto: PatchShoppingListItemDto,
+  ) {
+    return await this.shoppingListModel.findByIdAndUpdate(shoppingListId, {
+      $push: {
+        ingredients: patchShoppingListItemDto,
+      },
+    });
   }
 }
