@@ -30,6 +30,6 @@ export class IngredientService {
   }
 
   getIngredientType() {
-    return Object.values(IngredientType);
+    return IngredientType;
   }
 }
