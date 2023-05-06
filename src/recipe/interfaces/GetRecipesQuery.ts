@@ -3,5 +3,5 @@ export interface GetRecipesQuery {
   name?: RegExp;
   tags?: object;
   preparationTime?: object;
-  ingredientsIds?: object;
+  'ingredients.id'?: object;
 }
