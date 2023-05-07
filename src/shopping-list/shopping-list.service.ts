@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, ObjectId, Schema } from 'mongoose';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
@@ -18,9 +18,15 @@ export class ShoppingListService {
     return this.shoppingListModel.create(postShoppingListDto);
   }
   async getShoppingListByUserId(userId: String): Promise<ShoppingList[]> {
-    return await this.shoppingListModel.find({
-      $or: [{ ownerId: userId }, { sharedWith: userId }],
-    });
+    return await this.shoppingListModel
+      .find({
+        $or: [{ ownerId: userId }, { sharedWith: userId }],
+      })
+      .populate({
+        path: 'ingredients.ingredient',
+        select: 'name',
+        model: 'Ingredient',
+      });
   }
 
   async addItem(
@@ -31,6 +37,14 @@ export class ShoppingListService {
       $push: {
         ingredients: patchShoppingListItemDto,
       },
+    });
+  }
+
+  async getById(shoppingListId: Schema.Types.ObjectId) {
+    return await this.shoppingListModel.findById(shoppingListId).populate({
+      path: 'ingredients.ingredient',
+      select: 'name',
+      model: 'Ingredient',
     });
   }
 }

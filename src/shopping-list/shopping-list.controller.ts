@@ -28,6 +28,14 @@ export class ShoppingListController {
     @Param('shoppingListId') shoppingListId: ObjectId,
     @Body() patchShoppingListItemDto: PatchShoppingListItemDto,
   ) {
-    return this.shoppingListService.addItem(shoppingListId, patchShoppingListItemDto)
+    return this.shoppingListService.addItem(
+      shoppingListId,
+      patchShoppingListItemDto,
+    );
+  }
+
+  @Get('get-by-id/:shoppingListId')
+  getById(@Param('shoppingListId') shoppingListId: ObjectId) {
+    return this.shoppingListService.getById(shoppingListId);
   }
 }

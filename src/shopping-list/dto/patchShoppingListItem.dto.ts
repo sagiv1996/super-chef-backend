@@ -3,7 +3,7 @@ import { ObjectId } from 'mongoose';
 
 export class PatchShoppingListItemDto {
   @IsMongoId()
-  id: ObjectId;
+  ingredient: ObjectId;
 
   @IsNumber()
   @Min(0)

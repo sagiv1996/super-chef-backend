@@ -1,5 +1,5 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument, ObjectId, Types } from 'mongoose';
 
 export type ShoppingListDocument = HydratedDocument<ShoppingList>;
 
@@ -17,16 +17,19 @@ export class ShoppingList {
   @Prop({
     type: [
       {
-        id: { type: Types.ObjectId, ref: 'Ingredient', required: true },
+        ingredient: {
+          type: Types.ObjectId,
+          ref: 'Ingredient',
+          required: true,
+        },
         amount: { type: Number, min: 1, required: true },
         isBought: { type: Boolean, default: false, required: true },
       },
     ],
-    _id: false,
   })
   ingredients: [
     {
-      id: { type: Types.ObjectId; ref: 'Ingredient' };
+      ingredient: ObjectId;
       amount: number;
       isBought: boolean;
     },
