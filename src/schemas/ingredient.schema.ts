@@ -9,7 +9,7 @@ export class Ingredient {
   @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop()
   type: IngredientType;
 }
 

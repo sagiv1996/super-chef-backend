@@ -4,6 +4,7 @@ import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { ObjectId } from 'mongoose';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
+import { PatchUpdateIsBoughtDto } from './dto/patchUpdateIsBought.dto';
 
 @Controller('shopping-list')
 export class ShoppingListController {
@@ -37,5 +38,16 @@ export class ShoppingListController {
   @Get('get-by-id/:shoppingListId')
   getById(@Param('shoppingListId') shoppingListId: ObjectId) {
     return this.shoppingListService.getById(shoppingListId);
+  }
+
+  @Patch(':ingredientObjectId')
+  updateIsBought(
+    @Param('ingredientObjectId') ingredientObjectId: ObjectId,
+    @Body() patchUpdateIsBoughtDto: PatchUpdateIsBoughtDto,
+  ) {
+return this.shoppingListService.updateIsBought(
+  ingredientObjectId,
+  patchUpdateIsBoughtDto,
+);
   }
 }
