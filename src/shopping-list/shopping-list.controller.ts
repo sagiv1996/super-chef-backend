@@ -10,7 +10,7 @@ import {
 import { ShoppingListService } from './shopping-list.service';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
-import { ObjectId } from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 import { PatchUpdateSoppingListDto } from './dto/patchUpdateSoppingList.dto';
 
@@ -77,7 +77,9 @@ export class ShoppingListController {
   }
 
   @Delete(':shoppingListId')
-  deleteShoppingList(@Param('shoppingListId') shoppingListId: ObjectId) {
+  deleteShoppingList(
+    @Param('shoppingListId') shoppingListId: mongoose.Types.ObjectId,
+  ) {
     return this.shoppingListService.deleteShoppingList(shoppingListId);
   }
 }

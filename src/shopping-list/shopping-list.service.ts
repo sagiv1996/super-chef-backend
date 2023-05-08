@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId, Schema } from 'mongoose';
+import mongoose, { Model, ObjectId, Schema } from 'mongoose';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
@@ -93,7 +93,8 @@ export class ShoppingListService {
       },
     );
     if (!shoppingList.ingredients.length) {
-      return await this.deleteShoppingList(shoppingList._id);
+      const _id = new mongoose.Types.ObjectId(shoppingList._id);
+      return await this.deleteShoppingList(_id);
     }
   }
 
@@ -114,7 +115,7 @@ export class ShoppingListService {
     return shoppingList;
   }
 
-  async deleteShoppingList(shoppingListId: Schema.Types.ObjectId) {
+  async deleteShoppingList(shoppingListId: mongoose.Types.ObjectId) {
     return await this.shoppingListModel.findByIdAndDelete(shoppingListId);
   }
 }
