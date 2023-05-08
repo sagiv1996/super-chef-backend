@@ -1,7 +1,6 @@
 import {
   IsMongoId,
   IsNumber,
-  IsOptional,
   Min,
   IsString,
   ValidateIf,
