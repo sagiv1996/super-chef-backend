@@ -8,7 +8,7 @@ export class ShoppingList {
   @Prop({ required: true, type: String })
   ownerId: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: true, unique: true })
   name: string;
 
   @Prop({ type: String })

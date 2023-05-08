@@ -38,23 +38,18 @@ export class ShoppingListService {
     shoppingListId: ObjectId,
     patchShoppingListItemDto: PatchShoppingListItemDto,
   ) {
-    const isExist = await this.ingredientModel.exists({
-      _id: patchShoppingListItemDto.ingredient,
-    });
-    let ingredient;
-    if (!isExist) {
-      ingredient = await this.ingredientModel.create({
-        name: patchShoppingListItemDto.name,
-      });
-    }
+    const ingredient = await this.ingredientModel.findOneAndUpdate(
+      { name: patchShoppingListItemDto.name },
+      { name: patchShoppingListItemDto.name },
+      { upsert: true, new: true },
+    );
 
-    const newIngredientDto: PatchShoppingListItemDto = {
-      ingredient: ingredient._id,
-      amount: patchShoppingListItemDto.amount,
-    };
     return await this.shoppingListModel.findByIdAndUpdate(shoppingListId, {
       $push: {
-        ingredients: isExist ? patchShoppingListItemDto : newIngredientDto,
+        ingredients: {
+          ingredient: ingredient.id,
+          amount: patchShoppingListItemDto.amount,
+        },
       },
     });
   }
