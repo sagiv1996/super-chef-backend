@@ -13,7 +13,7 @@ export class PatchShoppingListItemDto {
   ingredient?: ObjectId;
 
   @IsNumber()
-  @Min(0)
+  @Min(1)
   amount: number;
 
   @IsString()
