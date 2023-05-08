@@ -79,11 +79,13 @@ export class ShoppingListService {
   }
 
   async deleteItem(ingredientObjectId: Schema.Types.ObjectId) {
-    return await this.shoppingListModel.findOneAndDelete(
+    return await this.shoppingListModel.findOneAndUpdate(
       { 'ingredients._id': ingredientObjectId },
       {
         $pull: {
-          'ingredients._id': ingredientObjectId,
+          ingredients: {
+            _id: ingredientObjectId,
+          },
         },
       },
     );
