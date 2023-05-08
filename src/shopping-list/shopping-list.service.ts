@@ -4,7 +4,7 @@ import { Model, ObjectId, Schema } from 'mongoose';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
-import { PatchUpdateIsBoughtDto } from './dto/patchUpdateIsBought.dto';
+import { PatchUpdateSoppingListDto } from './dto/patchUpdateSoppingList.dto';
 import { Ingredient } from 'src/schemas/ingredient.schema';
 
 @Injectable()
@@ -63,7 +63,7 @@ export class ShoppingListService {
 
   async updateIsBought(
     ingredientObjectId: ObjectId,
-    patchUpdateIsBoughtDto: PatchUpdateIsBoughtDto,
+    patchUpdateSoppingListDto: PatchUpdateSoppingListDto,
   ): Promise<ShoppingList> {
     const shoppingList = await this.shoppingListModel.findOneAndUpdate(
       {
@@ -71,7 +71,7 @@ export class ShoppingListService {
       },
       {
         $set: {
-          'ingredients.$.isBought': patchUpdateIsBoughtDto.isBought,
+          'ingredients.$.isBought': patchUpdateSoppingListDto.isBought,
         },
       },
     );
@@ -95,5 +95,22 @@ export class ShoppingListService {
     if (!shoppingList.ingredients.length) {
       return await this.shoppingListModel.findByIdAndDelete(shoppingList._id);
     }
+  }
+
+  async updateAmount(
+    ingredientObjectId: ObjectId,
+    patchUpdateSoppingListDto: PatchUpdateSoppingListDto,
+  ): Promise<ShoppingList> {
+    const shoppingList = await this.shoppingListModel.findOneAndUpdate(
+      {
+        'ingredients._id': ingredientObjectId,
+      },
+      {
+        $set: {
+          'ingredients.$.amount': patchUpdateSoppingListDto.amount,
+        },
+      },
+    );
+    return shoppingList;
   }
 }
