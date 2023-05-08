@@ -50,4 +50,9 @@ export class ShoppingListController {
       patchUpdateIsBoughtDto,
     );
   }
+
+  @Patch('deleteItem/:itemId')
+  deleteItem(@Param('itemId') ingredientObjectId: ObjectId) {
+    return this.shoppingListService.deleteItem(ingredientObjectId);
+  }
 }

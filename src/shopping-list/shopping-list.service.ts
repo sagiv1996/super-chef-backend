@@ -77,4 +77,15 @@ export class ShoppingListService {
     );
     return shoppingList;
   }
+
+  async deleteItem(ingredientObjectId: Schema.Types.ObjectId) {
+    return await this.shoppingListModel.findOneAndDelete(
+      { 'ingredients._id': ingredientObjectId },
+      {
+        $pull: {
+          'ingredients._id': ingredientObjectId,
+        },
+      },
+    );
+  }
 }
