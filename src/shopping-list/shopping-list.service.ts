@@ -6,7 +6,6 @@ import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 import { PatchUpdateIsBoughtDto } from './dto/patchUpdateIsBought.dto';
 import { Ingredient } from 'src/schemas/ingredient.schema';
-import { IngredientModule } from 'src/ingredient/ingredient.module';
 
 @Injectable()
 export class ShoppingListService {
@@ -22,7 +21,7 @@ export class ShoppingListService {
   ): Promise<ShoppingList> {
     return this.shoppingListModel.create(postShoppingListDto);
   }
-  async getShoppingListByUserId(userId: String): Promise<ShoppingList[]> {
+  async getShoppingListByUserId(userId: string): Promise<ShoppingList[]> {
     return await this.shoppingListModel
       .find({
         $or: [{ ownerId: userId }, { sharedWith: userId }],

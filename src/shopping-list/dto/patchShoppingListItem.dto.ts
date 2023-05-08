@@ -1,7 +1,6 @@
 import {
   IsMongoId,
   IsNumber,
-  IsOptional,
   Min,
   IsString,
   ValidateIf,
@@ -10,7 +9,7 @@ import { ObjectId } from 'mongoose';
 
 export class PatchShoppingListItemDto {
   @IsNumber()
-  @Min(0)
+  @Min(1)
   amount: number;
 
   @IsString()

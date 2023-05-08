@@ -19,7 +19,7 @@ export class ShoppingListController {
 
   @Get(':userId')
   getShoppingListByUserId(
-    @Param('userId') userId: String,
+    @Param('userId') userId: string,
   ): Promise<ShoppingList[]> {
     return this.shoppingListService.getShoppingListByUserId(userId);
   }
@@ -45,9 +45,9 @@ export class ShoppingListController {
     @Param('ingredientObjectId') ingredientObjectId: ObjectId,
     @Body() patchUpdateIsBoughtDto: PatchUpdateIsBoughtDto,
   ) {
-return this.shoppingListService.updateIsBought(
-  ingredientObjectId,
-  patchUpdateIsBoughtDto,
-);
+    return this.shoppingListService.updateIsBought(
+      ingredientObjectId,
+      patchUpdateIsBoughtDto,
+    );
   }
 }
