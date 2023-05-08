@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ShoppingListService } from './shopping-list.service';
 import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { ShoppingList } from 'src/schemas/shopping-list.schema';
@@ -66,5 +66,10 @@ export class ShoppingListController {
   @Patch('deleteItem/:itemId')
   deleteItem(@Param('itemId') ingredientObjectId: ObjectId) {
     return this.shoppingListService.deleteItem(ingredientObjectId);
+  }
+
+  @Delete(':shoppingListId')
+  deleteShoppingList(@Param('shoppingListId') shoppingListId: ObjectId) {
+    return this.shoppingListService.deleteShoppingList(shoppingListId);
   }
 }

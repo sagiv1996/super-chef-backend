@@ -93,7 +93,7 @@ export class ShoppingListService {
       },
     );
     if (!shoppingList.ingredients.length) {
-      return await this.shoppingListModel.findByIdAndDelete(shoppingList._id);
+      return await this.deleteShoppingList(shoppingList._id);
     }
   }
 
@@ -112,5 +112,9 @@ export class ShoppingListService {
       },
     );
     return shoppingList;
+  }
+
+  async deleteShoppingList(shoppingListId: Schema.Types.ObjectId) {
+    return await this.shoppingListModel.findByIdAndDelete(shoppingListId);
   }
 }

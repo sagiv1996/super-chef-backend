@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, Min } from 'class-validator';
 
 export class PatchUpdateSoppingListDto {
   @IsBoolean()
@@ -6,6 +6,7 @@ export class PatchUpdateSoppingListDto {
   isBought: boolean;
 
   @IsNumber()
+  @Min(1)
   @IsOptional()
   amount: number;
 }
