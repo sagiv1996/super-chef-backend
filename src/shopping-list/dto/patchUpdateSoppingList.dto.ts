@@ -1,11 +1,11 @@
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional } from 'class-validator';
 
 export class PatchUpdateSoppingListDto {
   @IsBoolean()
   @IsOptional()
   isBought: boolean;
 
-  @IsBoolean()
+  @IsNumber()
   @IsOptional()
-  amount: boolean;
+  amount: number;
 }
