@@ -56,7 +56,7 @@ export class ShoppingListService {
   async getById(shoppingListId: Schema.Types.ObjectId) {
     return await this.shoppingListModel.findById(shoppingListId).populate({
       path: 'ingredients.ingredient',
-      select: 'name',
+      select: ['name', 'category'],
       model: 'Ingredient',
     });
   }
