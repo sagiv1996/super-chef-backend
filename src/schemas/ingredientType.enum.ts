@@ -1,4 +1,7 @@
 export enum IngredientType {
-  KOSHER = 'כשר',
-  MEATY = 'בשרי',
+  Bakery = 'Bakery',
+  Fish = 'Fish',
+  Meat = 'Meat',
+  FruitsAndVegetables = 'FruitsAndVegetables',
+  Oils = 'Oils',
 }
