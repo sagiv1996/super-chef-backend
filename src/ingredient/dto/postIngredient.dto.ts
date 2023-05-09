@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { IngredientType } from 'src/schemas/ingredientType.enum';
+import { IngredientCategory } from 'src/schemas/ingredientCategory.enum';
 
 export class PostIngredientDto {
   @IsString()
@@ -7,7 +7,7 @@ export class PostIngredientDto {
   name: string;
 
   @IsString()
-  @IsEnum(IngredientType)
+  @IsEnum(IngredientCategory)
   @IsNotEmpty()
-  type: IngredientType;
+  category: IngredientCategory;
 }

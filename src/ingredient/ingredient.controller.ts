@@ -18,8 +18,8 @@ export class IngredientController {
     return this.ingredientService.createIngredient(body);
   }
 
-  @Get('get-ingredient-type')
-  getIngredientType() {
-    return this.ingredientService.getIngredientType();
+  @Get('get-ingredient-category')
+  getIngredientCategory() {
+    return this.ingredientService.getIngredientCategory();
   }
 }

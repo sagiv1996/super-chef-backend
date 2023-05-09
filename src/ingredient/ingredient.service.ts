@@ -4,7 +4,7 @@ import { Ingredient } from 'src/schemas/ingredient.schema';
 import { GetIngredientDto } from './dto/getIngredient.dto';
 import { Model } from 'mongoose';
 import { PostIngredientDto } from './dto/postIngredient.dto';
-import { IngredientType } from 'src/schemas/ingredientType.enum';
+import { IngredientCategory } from 'src/schemas/ingredientCategory.enum';
 
 @Injectable()
 export class IngredientService {
@@ -29,7 +29,7 @@ export class IngredientService {
     return newIngredient;
   }
 
-  getIngredientType() {
-    return IngredientType;
+  getIngredientCategory() {
+    return IngredientCategory;
   }
 }
