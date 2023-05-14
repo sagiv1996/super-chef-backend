@@ -15,7 +15,7 @@ import { RecipeTag } from 'src/schemas/recipeTags.enum';
 
 class IngredientItem {
   @IsMongoId()
-  id: Types.ObjectId;
+  ingredient: Types.ObjectId;
 
   @IsNumber()
   amount: number;

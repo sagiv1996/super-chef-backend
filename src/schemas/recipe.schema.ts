@@ -1,5 +1,5 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument, ObjectId, Types } from 'mongoose';
 import { RecipeTag } from './recipeTags.enum';
 
 export type RecipeDocument = HydratedDocument<Recipe>;
@@ -30,14 +30,21 @@ export class Recipe {
   preparationTimeInMinutes: number;
 
   @Prop({
-    type: [{ id: { type: Types.ObjectId, ref: 'Ingredient' }, amount: String }],
-    required: true,
-    _id: false,
+    type: [
+      {
+        ingredient: {
+          type: Types.ObjectId,
+          ref: 'Ingredient',
+          required: true,
+        },
+        amount: { type: Number, min: 1, required: true },
+      },
+    ],
   })
   ingredients: [
     {
-      id: { type: Types.ObjectId; ref: 'Ingredient' };
-      amount: string;
+      ingredient: ObjectId;
+      amount: number;
     },
   ];
 }

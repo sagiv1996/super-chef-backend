@@ -43,7 +43,15 @@ export class RecipeService {
     if (ingredientsIds) {
       query['ingredients.id'] = { $all: ingredientsIds };
     }
-    const recipes = await this.recipeModel.find(query).limit(limit).skip(skip);
+    const recipes = await this.recipeModel
+      .find(query)
+      .populate({
+        path: 'ingredients.ingredient',
+        select: ['name', 'category'],
+        model: 'Ingredient',
+      })
+      .limit(limit)
+      .skip(skip);
     return recipes;
   }
 }
