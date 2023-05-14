@@ -1,4 +1,4 @@
 export enum RecipeTag {
-  KOSHER = 'כשר',
-  MEATY = 'בשרי',
+  KOSHER = 'KOSHER',
+  MEATY = 'MEATY',
 }
