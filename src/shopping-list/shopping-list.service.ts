@@ -6,6 +6,7 @@ import { PostShoppingListDto } from './dto/postShoppingList.dto';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 import { PatchUpdateSoppingListDto } from './dto/patchUpdateSoppingList.dto';
 import { Ingredient } from 'src/schemas/ingredient.schema';
+import { PatchShoppingListItemsDto } from './dto/pathShoppingListItems.dto';
 
 @Injectable()
 export class ShoppingListService {
@@ -49,6 +50,17 @@ export class ShoppingListService {
           ingredient: ingredient.id,
           amount: patchShoppingListItemDto.amount,
         },
+      },
+    });
+  }
+
+  async addItems(
+    shoppingListId: ObjectId,
+    patchShoppingListItemsDto: PatchShoppingListItemsDto[],
+  ) {
+    return await this.shoppingListModel.findByIdAndUpdate(shoppingListId, {
+      $push: {
+        ingredients: patchShoppingListItemsDto,
       },
     });
   }

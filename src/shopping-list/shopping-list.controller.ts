@@ -13,6 +13,7 @@ import { ShoppingList } from 'src/schemas/shopping-list.schema';
 import mongoose, { ObjectId } from 'mongoose';
 import { PatchShoppingListItemDto } from './dto/patchShoppingListItem.dto';
 import { PatchUpdateSoppingListDto } from './dto/patchUpdateSoppingList.dto';
+import { PatchShoppingListItemsDto } from './dto/pathShoppingListItems.dto';
 
 @Controller('shopping-list')
 export class ShoppingListController {
@@ -43,6 +44,16 @@ export class ShoppingListController {
     );
   }
 
+  @Patch('add-items/:shoppingListId')
+  addItems(
+    @Param('shoppingListId') shoppingListId: ObjectId,
+    @Body() patchShoppingListItemsDto: PatchShoppingListItemsDto[],
+  ) {
+    return this.shoppingListService.addItems(
+      shoppingListId,
+      patchShoppingListItemsDto,
+    );
+  }
   @Get('get-by-id/:shoppingListId')
   getById(@Param('shoppingListId') shoppingListId: ObjectId) {
     return this.shoppingListService.getById(shoppingListId);
